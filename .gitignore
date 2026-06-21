@@ -1,15 +1,39 @@
-node_modules
+# ==========================
+# Python
+# ==========================
+backend/venv/
+backend/__pycache__/
+backend/**/*.pyc
+backend/.pytest_cache/
 
-.env
+# Environment Variables
+backend/.env
 
-__pycache__
+# ==========================
+# Next.js
+# ==========================
+frontend/.next/
+frontend/node_modules/
+frontend/out/
 
-venv
+# ==========================
+# VS Code
+# ==========================
+.vscode/
 
-dist
+# ==========================
+# OS
+# ==========================
+.DS_Store
+Thumbs.db
 
-.next
+# ==========================
+# Logs
+# ==========================
+*.log
 
-.pytest_cache
-
-alembic/versions
+# ==========================
+# Build
+# ==========================
+dist/
+build/
