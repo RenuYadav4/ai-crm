@@ -1,7 +1,11 @@
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+<<<<<<< HEAD
 from core.database import Base
+=======
+from core.database import Base
+>>>>>>> 10b1d0a (fixed migration issue)
 
 class Organization(Base):
     __tablename__ = "organizations"
@@ -20,7 +24,7 @@ class Organization(Base):
     )
 
     users = relationship(
-        "users",
+        "User",
         back_populates="organization",
         cascade="all, delete"
     )
