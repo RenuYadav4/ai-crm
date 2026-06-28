@@ -8,7 +8,7 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-from database.database import Base
+from core.database import Base
 
 class User(Base):
     __tablename__ = "users"
