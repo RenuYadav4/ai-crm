@@ -15,7 +15,8 @@ class TokenResponse(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "Bearer"
-
+    user: UserResponse
+    
 class UserResponse(BaseModel):
     id: int
     full_name: str
