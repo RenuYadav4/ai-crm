@@ -8,11 +8,7 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-<<<<<<< HEAD
 from core.database import Base
-=======
-from core.database import Base
->>>>>>> 10b1d0a (fixed migration issue)
 
 class User(Base):
     __tablename__ = "users"
