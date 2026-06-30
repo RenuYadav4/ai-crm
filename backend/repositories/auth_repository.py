@@ -46,8 +46,8 @@ class AuthRepository:
             .first()
         )
 
-    def delete_refresh_token(self, token: RefreshToken,):
-        self.db.delete(token)
+    def delete_refresh_token(self, refresh_token: RefreshToken,):
+        self.db.delete(refresh_token)
 
         self.db.commit()   
 
