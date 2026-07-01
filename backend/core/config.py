@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = Field(default="local")
 
     DATABASE_URL: str
-    REDIS_URL: str = Field(default="redis://localhost:6379/0")
+    REDIS_URL: str = ""
 
     SECRET_KEY: str = "change-me"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
