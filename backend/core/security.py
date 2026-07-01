@@ -55,7 +55,7 @@ def create_refresh_token(data: dict[str, Any]) -> tuple[str, datetime]:
     token = jwt.encode(
         payload,
         settings.SECRET_KEY,
-        algorithm=settings.ALGORITHM
+        algorithm=settings.JWT_ALGORITHM
     )
 
     return token, expire
@@ -70,7 +70,7 @@ def decode_token(token: str):
         return jwt.decode(
             token,
             settings.SECRET_KEY,
-            algorithms=[settings.ALGORITHM]
+            algorithms=[settings.JWT_ALGORITHM]
         )
     except JWTError:
         return None

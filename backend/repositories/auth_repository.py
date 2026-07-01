@@ -18,24 +18,33 @@ class AuthRepository:
         )
     
     def create_user(self, user:User,):
-        self.db.add(user)
-        self.db.commit()
-        self.db.refresh(user)
+        try:
+           self.db.add(user)
+           self.db.commit()
+           self.db.refresh(user)
 
-        return user
+           return user
+        except:
+            self.db.rollback()
+            raise
     
     def save_refresh_token(self, token: str, expires_at: datetime, user_id: str,):
-        refresh = RefreshToken(
-            token=token,
-            expires_at=expires_at,
-            user_id=user_id,
-        )
+        try:
+          refresh = RefreshToken(
+             token=token,
+             expires_at=expires_at,
+             user_id=user_id,
+          )
 
-        self.db.add(refresh)
-        self.db.commit()
-        self.db.refresh(refresh)
+          self.db.add(refresh)
+          self.db.commit()
+          self.db.refresh(refresh)
 
-        return refresh
+          return refresh
+
+        except Exception:
+          self.db.rollback()
+          raise    
     
     def get_refresh_token(self, token:str,):
         return (
@@ -47,7 +56,9 @@ class AuthRepository:
         )
 
     def delete_refresh_token(self, refresh_token: RefreshToken,):
-        self.db.delete(refresh_token)
-
-        self.db.commit()   
-
+        try:
+            self.db.delete(refresh_token)
+            self.db.commit()
+        except Exception:
+            self.db.rollback()
+            raise

@@ -11,12 +11,6 @@ class LoginRequest(BaseModel):
     email: EmailStr
     password: str
 
-class TokenResponse(BaseModel):
-    access_token: str
-    refresh_token: str
-    token_type: str = "Bearer"
-    user: UserResponse
-    
 class UserResponse(BaseModel):
     id: int
     full_name: str
@@ -24,5 +18,11 @@ class UserResponse(BaseModel):
     is_active: bool
     organization_id: int
     role_id: int
+
+class TokenResponse(BaseModel):
+    access_token: str
+    refresh_token: str
+    token_type: str = "Bearer"
+    user: UserResponse
 
     model_config = ConfigDict(from_attributes=True)
