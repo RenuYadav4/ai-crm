@@ -1,25 +1,26 @@
-from sqlalchemy import String
+from sqlalchemy import String , DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
+from datetime import datetime , timezone
 
-<<<<<<< HEAD
 from core.database import Base
-=======
-from core.database import Base
->>>>>>> 10b1d0a (fixed migration issue)
 
 
 class Role(Base):
     __tablename__ = "roles"
 
-    id: Mapped[int] = mapped_column(
+    iid: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
         primary_key=True,
-        index=True
+        default=uuid.uuid4,
     )
 
     name: Mapped[str] = mapped_column(
         String(50),
         unique=True,
-        nullable=False
+        nullable=False,
+        index= True
     )
 
     description: Mapped[str | None] = mapped_column(
@@ -27,7 +28,15 @@ class Role(Base):
         nullable=True
     )
 
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False,
+    )
+
+
     users = relationship(
         "User",
-        back_populates="role"
+        back_populates="role",
     )
+
