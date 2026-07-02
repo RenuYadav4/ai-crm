@@ -13,13 +13,20 @@ pwd_context = CryptContext(
 )
 
 def hash_password(password: str)-> str:
+    print("\n========== SECURITY ==========")
+    print("[Security] Hashing password")
+
     return pwd_context.hash(password)
 
 def verify_password(plain_password: str, hashed_password: str)-> bool:
+    print("\n========== SECURITY ==========")
+    print("[Security] Verifying password")
     return pwd_context.verify(plain_password, hashed_password)
 
 
 def create_access_token(data: dict[str, Any])->str:
+    print("\n========== SECURITY ==========")
+    print("[Security] Creating access token")
     payload = data.copy()
 
     expire = datetime.now(timezone.utc)+timedelta(
@@ -31,6 +38,8 @@ def create_access_token(data: dict[str, Any])->str:
         "type":"access"
     })
 
+    print(f"[Security] Token payload: {payload}")
+
     return jwt.encode(
         payload,
         settings.SECRET_KEY,
@@ -41,6 +50,8 @@ def create_access_token(data: dict[str, Any])->str:
 # -------------------------
 
 def create_refresh_token(data: dict[str, Any]) -> tuple[str, datetime]:
+    print("\n========== SECURITY ==========")
+    print("[Security] Creating refresh token")
     payload = data.copy()
 
     expire = datetime.now(timezone.utc) + timedelta(
@@ -52,6 +63,7 @@ def create_refresh_token(data: dict[str, Any]) -> tuple[str, datetime]:
         "type": "refresh"
     })
 
+    print(f"[Security] Token payload: {payload}")
     token = jwt.encode(
         payload,
         settings.SECRET_KEY,
@@ -66,6 +78,8 @@ def create_refresh_token(data: dict[str, Any]) -> tuple[str, datetime]:
 # -------------------------
 
 def decode_token(token: str):
+    print("\n========== SECURITY ==========")
+    print("[Security] Decoding token")
     try:
         return jwt.decode(
             token,

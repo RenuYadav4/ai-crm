@@ -12,6 +12,9 @@ class AuthService:
         self.repository = AuthRepository(db)
     
     def register(self,  request: RegisterRequest,):
+        print("\n========== SERVICE ==========")
+        print("[Service] register() called")
+        print("[Service] Checking if user already exists")
         existing_user = self.repository.get_user_by_email(request.email)
 
         if existing_user:
@@ -20,6 +23,9 @@ class AuthService:
                 detail="Email already registered.",
             )
         
+        print("[Service] User not found")
+        print("[Service] Creating new user")
+
         hashed_password = hash_password(request.password)
 
         user = User(
@@ -30,10 +36,13 @@ class AuthService:
             role_id=request.role_id,
         )
 
+        print("[Service] Saving new user to the database")
         return self.repository.create_user(user)
     
 
     def login(self, email: str, password: str):
+        print("\n========== SERVICE ==========")
+        print("[Service] login() called")
         user = self.repository.get_user_by_email(email)
 
         if not user:
@@ -42,12 +51,15 @@ class AuthService:
               detail="Invalid credentials"
         )
 
+        print("[Service] User found, verifying password")
         if not verify_password(password, user.hashed_password):
            raise HTTPException(
               status_code=status.HTTP_401_UNAUTHORIZED,
               detail="Invalid credentials"
             )
 
+
+        print("[Service] Password verified, generating tokens")
         access_token = create_access_token({
            "user_id": user.id,
            "email": user.email,

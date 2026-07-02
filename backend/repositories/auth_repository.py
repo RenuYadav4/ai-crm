@@ -11,6 +11,9 @@ class AuthRepository:
         self.db = db
 
     def get_user_by_email(self,email: str,):
+        print("\n========== REPOSITORY ==========")
+        print("[Repository] Searching user in database")
+        print(f"[Repository] Email = {email}")
         return (
             self.db.query(User)
             .filter(User.email == email)
@@ -18,6 +21,8 @@ class AuthRepository:
         )
     
     def create_user(self, user:User,):
+        print("\n========== REPOSITORY ==========")
+        print("[Repository] Creating new user in database")
         try:
            self.db.add(user)
            self.db.commit()
@@ -29,6 +34,8 @@ class AuthRepository:
             raise
     
     def save_refresh_token(self, token: str, expires_at: datetime, user_id: str,):
+        print("\n========== REPOSITORY ==========")
+        print("[Repository] Saving refresh token in database")
         try:
           refresh = RefreshToken(
              token=token,
@@ -47,6 +54,9 @@ class AuthRepository:
           raise    
     
     def get_refresh_token(self, token:str,):
+        print("\n========== REPOSITORY ==========")
+        print("[Repository] Searching refresh token in database")
+        print(f"[Repository] Token = {token}")
         return (
             self.db.query(RefreshToken)
             .filter(
@@ -56,6 +66,8 @@ class AuthRepository:
         )
 
     def delete_refresh_token(self, refresh_token: RefreshToken,):
+        print("\n========== REPOSITORY ==========")
+        print("[Repository] Deleting refresh token from database")
         try:
             self.db.delete(refresh_token)
             self.db.commit()

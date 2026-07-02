@@ -25,6 +25,8 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
     status_code=status.HTTP_201_CREATED
 )
 def register(request: RegisterRequest, db: Session = Depends(get_db)):
+        print("\n========== ROUTE ==========")
+        print("[Route] /auth/register hit")
         service = AuthService(db)
         return service.register(request)
    
@@ -39,6 +41,8 @@ def register(request: RegisterRequest, db: Session = Depends(get_db)):
     status_code=status.HTTP_200_OK
 )
 def login(request: LoginRequest, db: Session = Depends(get_db)):
+        print("\n========== ROUTE ==========")
+        print("[Route] /auth/login hit")
         service = AuthService(db)
 
         result = service.login(
