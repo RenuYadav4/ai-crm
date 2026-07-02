@@ -24,6 +24,7 @@ class Settings(BaseSettings):
 
     SECRET_KEY: str = "change-me"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 7 
     JWT_ALGORITHM: str = "HS256"
 
     OPENAI_API_KEY: str = ""
